@@ -84,3 +84,5 @@ const ProjectView = (item: { index: number; item: Project }) => {
 };
 
 export default ProjectView;
+
+

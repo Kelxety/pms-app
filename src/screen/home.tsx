@@ -185,7 +185,8 @@ const HomeScreen = ({ navigation }: Props) => {
               </View>
             </View>
           </View>
-          <View className="mt-4 px-4">
+          <View className="mt-4 px-4 h-[200px] border rounded-lg">
+            {/* <SmallMapView /> */}
           </View>
           <View className="mt-16 mb-10 bg-white px-4">
             <TextInput
