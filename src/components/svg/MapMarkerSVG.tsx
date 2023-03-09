@@ -1,7 +1,7 @@
 import React from "react";
-import Svg, { Path, SvgProps, G, Ellipse } from "react-native-svg";
+import Svg, { Path, G, Ellipse } from "react-native-svg";
 
-const MapMarkerSVG = (props: SvgProps) => {
+const MapMarkerSVG = () => {
   return (
     <Svg
       stroke={"#C35555"}

@@ -8,6 +8,7 @@ import { SplashScreenOnly } from "../src/screen/splashScreen";
 import Login from "../src/screen/login";
 import ProjectDetails from "../src/screen/projectDetails";
 import EngDashboard from "../src/screen/engDashboard";
+import Map from "../src/screen/map";
 
 export type StackParamListType = {
   Home: undefined;
@@ -16,6 +17,7 @@ export type StackParamListType = {
   Login: undefined;
   Profile: undefined;
   ProjectDetails: undefined;
+  Map: undefined;
 };
 
 export type Props = NativeStackScreenProps<StackParamListType>;
@@ -29,7 +31,8 @@ const RootNavigator = () => {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
       <Stack.Screen name="Home" component={TabNavigator} />
-      <Stack.Screen name="EngDashboard" component={EngDashboard} />
+      <Stack.Screen name="Map" component={Map} />
+      <Stack.Screen name="EngDashboard" component={EngDashboard} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 };

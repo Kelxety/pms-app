@@ -206,7 +206,7 @@ const ProjectDetails = ({ navigation }: Props) => {
             </View>
           </View>
           <View className="flex w-full items-center justify-center pt-4">
-            <TouchableOpacity className="bg-primary-500 flex h-8 w-32 items-center justify-center rounded-2xl px-4 text-white">
+            <TouchableOpacity className="bg-primary-500 flex h-8 w-32 items-center justify-center rounded-2xl px-4 text-white" onPress={()=>{navigation.navigate('Map')}}>
               <Text className="text-white">View in map</Text>
             </TouchableOpacity>
           </View>

@@ -7,11 +7,11 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import ProjectView from "../components/ProjectView";
 import { Props } from "../../navigator/RootNavigator";
 
-export interface Project {
+type Project = {
   id: number;
   projectName: string;
   engineer: string;
@@ -22,6 +22,8 @@ export interface Project {
   remarks: string;
 }
 
+
+
 const Projects = ({ navigation }: Props) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -29,7 +31,16 @@ const Projects = ({ navigation }: Props) => {
     });
   }, []);
 
-  const DataMaster: Project[] = [
+  const [searchText, setSearchText] = useState('')
+
+  const handleSearch = (list: string) => {
+
+    setSearchText(list)
+    const searchData = dataMaster.filter(listItem => listItem.projectName.includes(list.toLowerCase()));
+    setDataMaster(searchData)
+  }
+
+  const [dataMaster, setDataMaster] = useState<Project[]>([
     {
       id: 1,
       projectName: "Concreting of Araceli Dumaran Road",
@@ -120,7 +131,7 @@ const Projects = ({ navigation }: Props) => {
       info: "Concreting of 5.60 kms. of road",
       remarks: "",
     },
-  ];
+  ]);
 
   return (
     <SafeAreaView className="bg-primary-500 dark:bg-gray-900">
@@ -133,10 +144,12 @@ const Projects = ({ navigation }: Props) => {
           inlineImageLeft="search_icon"
           className="h-10 rounded-lg border border-gray-50 bg-white px-2"
           placeholder="search project"
+          value={searchText}
+          onChangeText={(text) => handleSearch(text)}
         />
         <View className="p-2"></View>
         <FlatList
-          data={DataMaster}
+          data={dataMaster}
           keyExtractor={(item) => item.id.toString()}
           ItemSeparatorComponent={() => <View className="p-1.5" />}
           renderItem={({ item, index }) => (

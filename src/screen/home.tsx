@@ -18,6 +18,8 @@ import Svg, { Circle } from "react-native-svg";
 import SvgChart from "../components/SvgChart";
 import SvgChartWhole from "../components/SvgChartWhole";
 import { useColorScheme } from "nativewind";
+import SmallMapView from "../components/SmallMapView";
+import { create } from 'zustand';
 
 export type HomeScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabStackParamList, "Dashboard">,
@@ -29,8 +31,22 @@ export type PieChartData = {
   percent: number;
 }[];
 
+type Roles = {
+  role: string,
+  removeRole: () => void
+}
+
 const HomeScreen = ({ navigation }: Props) => {
+
   const { colorScheme, toggleColorScheme } = useColorScheme();
+
+  const useRoleStore = create<Roles>((set) => ({
+    role: 'admin',
+    removeRole: () => set({ role: '' }),
+  }));
+
+  const userRole = useRoleStore((state) => state.role)
+
   const data = [
     {
       size: 60,
@@ -51,25 +67,32 @@ const HomeScreen = ({ navigation }: Props) => {
       numberOfProj: 4,
     },
   ];
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
   }, []);
+
+ 
+
+  if(userRole !== 'admin') navigation.navigate('Login')
   return (
     <SafeAreaView className="bg-primary-500 dark:bg-gray-900">
       <StatusBar barStyle={"light-content"} />
       <View className="flex flex-row justify-between">
-        <View className="flex flex-row items-center p-2">
+        <TouchableOpacity className="flex flex-row items-center p-2" onPress={()=>{navigation.navigate('Login')}}>
           <Image
             style={styles.imageView}
             source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
           />
           <View className="flex py-4">
             <Text className="text-white">Hello, John Doe</Text>
-            <Text className="text-white">PGP, Top Management</Text>
+            <Text className="text-white">PGP, 
+              {userRole === 'admin' ? ' Top Management' :' Ground Level Engineer'}
+            </Text>
           </View>
-        </View>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={toggleColorScheme}
           className="flex items-center justify-center p-4"
@@ -185,8 +208,8 @@ const HomeScreen = ({ navigation }: Props) => {
               </View>
             </View>
           </View>
-          <View className="mt-4 px-4 h-[200px] border rounded-lg">
-            {/* <SmallMapView /> */}
+          <View className="mt-4 px-4 h-[300px] border border-white rounded-lg overflow-hidden">
+            <SmallMapView />
           </View>
           <View className="mt-16 mb-10 bg-white px-4">
             <TextInput
