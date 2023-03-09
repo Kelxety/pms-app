@@ -32,8 +32,10 @@ const Login = ({ navigation }: Props) => {
   });
 
   const onSubmit = (data: LoginFormInputs) => {
-    if (data.password === "12345" && data.username === "Admin") {
+    if (data.password === "1" && data.username === "Admin") {
       navigation.navigate("Home");
+    } else if (data.password === '1' && data.username === '1') {
+      navigation.navigate("EngDashboard")
     }
     return new Promise((resolve) => setTimeout(resolve, 1000));
   };

@@ -31,6 +31,15 @@ PODS:
     - ReactCommon/turbomodule/core (= 0.70.5)
   - fmt (6.2.1)
   - glog (0.3.5)
+  - MapboxCommon (23.3.2)
+  - MapboxCoreMaps (10.11.1):
+    - MapboxCommon (~> 23.3)
+  - MapboxMaps (10.11.1):
+    - MapboxCommon (= 23.3.2)
+    - MapboxCoreMaps (= 10.11.1)
+    - MapboxMobileEvents (= 1.0.10)
+    - Turf (~> 2.0)
+  - MapboxMobileEvents (1.0.10)
   - RCT-Folly (2021.07.22.00):
     - boost
     - DoubleConversion
@@ -240,6 +249,8 @@ PODS:
   - React-jsinspector (0.70.5)
   - React-logger (0.70.5):
     - glog
+  - react-native-leaflet (0.1.2):
+    - React-Core
   - react-native-leaflet-ts (0.2.18):
     - React-Core
   - react-native-netinfo (9.3.5):
@@ -318,11 +329,25 @@ PODS:
     - React-jsi (= 0.70.5)
     - React-logger (= 0.70.5)
     - React-perflogger (= 0.70.5)
+  - RNFS (2.20.0):
+    - React-Core
+  - rnmapbox-maps (10.0.0-beta.74):
+    - MapboxMaps (~> 10.11.1)
+    - React
+    - React-Core
+    - rnmapbox-maps/DynamicLibrary (= 10.0.0-beta.74)
+    - Turf
+  - rnmapbox-maps/DynamicLibrary (10.0.0-beta.74):
+    - MapboxMaps (~> 10.11.1)
+    - React
+    - React-Core
+    - Turf
   - RNScreens (3.18.2):
     - React-Core
     - React-RCTImage
   - RNSVG (13.4.0):
     - React-Core
+  - Turf (2.6.1)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -355,6 +380,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-leaflet (from `../node_modules/react-native-leaflet-view`)
   - react-native-leaflet-ts (from `../node_modules/react-native-leaflet-ts`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -371,6 +397,8 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNFS (from `../node_modules/react-native-fs`)
+  - "rnmapbox-maps (from `../node_modules/@rnmapbox/maps`)"
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -378,6 +406,11 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - fmt
+    - MapboxCommon
+    - MapboxCoreMaps
+    - MapboxMaps
+    - MapboxMobileEvents
+    - Turf
 
 EXTERNAL SOURCES:
   boost:
@@ -436,6 +469,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-leaflet:
+    :path: "../node_modules/react-native-leaflet-view"
   react-native-leaflet-ts:
     :path: "../node_modules/react-native-leaflet-ts"
   react-native-netinfo:
@@ -468,6 +503,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/runtimeexecutor"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
+  rnmapbox-maps:
+    :path: "../node_modules/@rnmapbox/maps"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNSVG:
@@ -491,6 +530,10 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: fe8b5f1429cfe83a8d72dc8ed61dc7704cac8745
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
+  MapboxCommon: c3a35f6884b80d898de9f11d88cb28c5caba584a
+  MapboxCoreMaps: 03e7214fabb54d496ff56314ff8159dd264b6093
+  MapboxMaps: 85610575a8871b3f5e98be2a234f0229a33324a7
+  MapboxMobileEvents: de50b3a4de180dd129c326e09cd12c8adaaa46d6
   RCT-Folly: 0080d0a6ebf2577475bda044aa59e2ca1f909cda
   RCTRequired: 21229f84411088e5d8538f21212de49e46cc83e2
   RCTTypeSafety: 62eed57a32924b09edaaf170a548d1fc96223086
@@ -505,6 +548,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 31564fa6912459921568e8b0e49024285a4d584b
   React-jsinspector: badd81696361249893a80477983e697aab3c1a34
   React-logger: fdda34dd285bdb0232e059b19d9606fa0ec3bb9c
+  react-native-leaflet: cead07656af59e80164379f6ec9f11a012d7725c
   react-native-leaflet-ts: ebde01551b39eb0680d10701ba08242b1565de4d
   react-native-netinfo: 85b2a435c4d3705c08b0c42ff2d6ef6b9622ea0a
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
@@ -521,10 +565,13 @@ SPEC CHECKSUMS:
   React-RCTVibration: 8e5c8c5d17af641f306d7380d8d0fe9b3c142c48
   React-runtimeexecutor: 7401c4a40f8728fd89df4a56104541b760876117
   ReactCommon: c9246996e73bf75a2c6c3ff15f1e16707cdc2da9
+  RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
+  rnmapbox-maps: c9286ebb23569bbbfcd1d8e69d44e8c71763f883
   RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
   RNSVG: 07dbd870b0dcdecc99b3a202fa37c8ca163caec2
+  Turf: 469ce2c3d22e5e8e4818d5a3b254699a5c89efa4
   Yoga: eca980a5771bf114c41a754098cd85e6e0d90ed7
 
-PODFILE CHECKSUM: e5704f1675be2c8a4bf93512297c2ecc15b83219
+PODFILE CHECKSUM: 0c9989f30a9ce04614e66629eb2af4ecd209b1c0
 
 COCOAPODS: 1.12.0
