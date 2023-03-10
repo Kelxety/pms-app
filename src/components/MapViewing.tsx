@@ -8,6 +8,7 @@ type LocationT = {
 }
 
 void MapboxGL.setAccessToken('sk.eyJ1Ijoia2VseGV0eSIsImEiOiJjbGV6MG5tcjUwYWg3M3JzMmRmZ2JvM2R5In0.g8AVLvmX3m8RJs8zO_xB_g')
+
 const Mapviewing = () => {
   const camera = useRef<Camera>(null);
   const [showMunicipalities, setShowMunicipalities] = useState(true);
@@ -21,7 +22,7 @@ const Mapviewing = () => {
     features: [
       {
         type: "Feature",
-        properties: {},
+        properties: {name:'hello'},
         geometry: {
           type: "LineString",
           coordinates: [
@@ -45,10 +46,12 @@ const Mapviewing = () => {
       type: "Polygon",
       coordinates: [
         [
-          [118.732272, 9.740555],
-          [118.685437, 9.716191],
-          [118.732542, 9.740555],
-          [118.689557, 9.716191],
+          [118.743516, 9.739471],
+          [118.729311, 9.740825],
+          [118.728153, 9.742136],
+          [118.728718, 9.742997],
+          [118.729348, 9.742619],
+          [118.736525, 9.742309]
         ],
       ],
     },
@@ -119,7 +122,6 @@ const Mapviewing = () => {
             defaultSettings={initialCamera}
           />
           <MapboxGL.PointAnnotation coordinate={coordinates} />
-          {/* <View className='bg-black/50'>{renderAnnotations()}</View> */}
           {/* <ProjectsMarker /> */}
           {showMunicipalities && municipalities?.map((data:LocationT, i: number) => {
             return (
