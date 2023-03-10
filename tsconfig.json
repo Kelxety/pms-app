@@ -21,7 +21,7 @@
     "noUncheckedIndexedAccess": true
   },
   "include": [
-    ".eslintrc.js",
+    ".eslintrc.tsx",
     "./src",
     "./navigator"
   ],
