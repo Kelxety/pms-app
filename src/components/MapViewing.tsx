@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState} from 'react';
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import MapboxGL, {Camera} from '@rnmapbox/maps';
 import RoadMarker from './svg/RoadMarker';
+import { kml } from '@tmcw/togeojson';
+import { useQuery } from '@tanstack/react-query';
+import { DOMParser } from '@xmldom/xmldom';
 
 type LocationT = {
   name: string, coord: number[],
@@ -9,82 +12,22 @@ type LocationT = {
 
 void MapboxGL.setAccessToken('sk.eyJ1Ijoia2VseGV0eSIsImEiOiJjbGV6MG5tcjUwYWg3M3JzMmRmZ2JvM2R5In0.g8AVLvmX3m8RJs8zO_xB_g')
 
+
+
 const Mapviewing = () => {
+ 
   const camera = useRef<Camera>(null);
-  const [showMunicipalities, setShowMunicipalities] = useState(true);
-  const [showProjects, setShowProjects] = useState(false);
-  const [showRenderedProject, setShowRenderedProjects] = useState(false);
   const [coordinates, setCoordinates] = useState([119.164026, 10.151691]);
   const [zoom, setZoom] = useState(5.9)
   const [defaulCoordinates] = useState([119.164026, 10.151691])
-  const [route, setRoute] = useState({
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        properties: {name:'hello'},
-        geometry: {
-          type: "LineString",
-          coordinates: [
-            [118.546395, 9.745461],
-            [118.747688, 9.757935],
-            [118.747353, 9.763709],
-            [ 118.738992, 9.769386]
-          ],
-        },
-      },
-    ],
-  });
-  const initialCamera = {
-    centerCoordinate: [180.546395, 9.745461],
-    zoomLevel: 3
-  }
 
-  const [polygon, setPolygon] = useState({
-    type: "Feature",
-    geometry: {
-      type: "Polygon",
-      coordinates: [
-        [
-          [118.743516, 9.739471],
-          [118.729311, 9.740825],
-          [118.728153, 9.742136],
-          [118.728718, 9.742997],
-          [118.729348, 9.742619],
-          [118.736525, 9.742309]
-        ],
-      ],
-    },
-  });
-
-  const [kmlData, setKmlData] = useState('');
-
-  useEffect(() => {
-    const fetchKmlData = async () => {
-      const response = await fetch('https://raw.githubusercontent.com/Kelxety/pms-app/main/assets/GIS/6ft5nGpSnn.kml');
-      const data = await response.text();
-      console.log(data)
-    }
-    void fetchKmlData();
-  },[])
-  
-  const renderProject = (coord: number[], zoom: number) => {
-    setCoordinates(coord)
-    setZoom(zoom)
-    setTimeout(() => {
-      setShowProjects(false)
-      setShowRenderedProjects(true)
-    }, 2000)
-  }
-
-  const renderMunicipality = (coord: number[], zoom: number) => {
-    setCoordinates(coord)
-    setZoom(zoom)
-    setTimeout(() => {
-      setShowMunicipalities(false)
-      setShowProjects(true)
-    }, 1000)
-    console.log(coordinates)
+  const fetchKml = async () => {
+    const response = await fetch('https://raw.githubusercontent.com/Kelxety/pms-app/main/assets/GIS/6ft5nGpSnn.kml');
+    const text = await response.text();
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(text, 'text/html');
+    const geojson = kml(htmlDoc);
+    return geojson;
   }
 
   const [municipalities] = useState<LocationT[]>([
@@ -97,13 +40,19 @@ const Mapviewing = () => {
     { name: 'balabac', coord: [117.125322, 7.962410] }
   ])
 
-  const [projects] = useState([
-    [119.895963, 12.208497],
-    [120.203751, 12.026101],
-    [119.919601, 11.841750],
-    [121.012633, 10.835265]
-  ])
-  
+  //Quries
+  const { data, isError, isLoading } = useQuery(['kmlData'], fetchKml);
+
+  if (isLoading) {
+    return <View><Text>Loading</Text></View>
+  }
+
+  if (isError) {
+    return <View><Text>Error: </Text></View>
+  }
+
+
+
   return (
     <SafeAreaView className='flex justify-center items-center bg-primary-500'>
       <View className=''>
@@ -112,18 +61,38 @@ const Mapviewing = () => {
           compassEnabled={true}
           scrollEnabled={true}
           attributionEnabled={false}
-          logoEnabled={false} className='h-[500px] w-screen z-0 '>
+          logoEnabled={false} className='h-[75vh] w-screen z-0 '>
           <Camera
             ref={camera}
             followZoomLevel={zoom}
             zoomLevel={zoom}
             centerCoordinate={coordinates}
             followHeading={1}
-            defaultSettings={initialCamera}
+            defaultSettings={{centerCoordinate: coordinates, zoomLevel: 3}}
           />
-          <MapboxGL.PointAnnotation coordinate={coordinates} />
+
+          <MapboxGL.PointAnnotation id="narra" coordinate={[118.121250, 9.159409]}
+            onSelected={() => {
+              setCoordinates([118.408595, 9.268540])
+              setZoom(9)
+            }}
+          >
+            <View className='bg-white'>
+              <Text className='text-xs text-gray-700 '>Narra</Text>
+            </View>  
+          </MapboxGL.PointAnnotation>
+          <MapboxGL.PointAnnotation id="elnido" coordinate={[119.389923, 11.180088]}
+            onSelected={() => {
+              setCoordinates([119.453779, 11.205480])
+              setZoom(10)
+            }}
+          >
+            <View className='bg-white'>
+              <Text className='text-xs text-gray-700 '>El Nido</Text>
+            </View>  
+          </MapboxGL.PointAnnotation>
           {/* <ProjectsMarker /> */}
-          {showMunicipalities && municipalities?.map((data:LocationT, i: number) => {
+          {/* {showMunicipalities && municipalities?.map((data:LocationT, i: number) => {
             return (
               <MapboxGL.MarkerView coordinate={data.coord} key={i}>
                 <TouchableOpacity onPress={()=>{renderMunicipality(data.coord, 8)}}>
@@ -133,54 +102,33 @@ const Mapviewing = () => {
                 </TouchableOpacity>
               </MapboxGL.MarkerView>
             )
-          })}
+          })} */}
 
-          {showProjects && projects?.map((coor: number[], i: number) => {
-            if(!coor) return
-            return(
-              <MapboxGL.MarkerView coordinate={coor} key={i}>
-                <TouchableOpacity onPress={() => { renderProject(coor, 15) }}>
-                  <View className='items-center w-[60px] h-[70px] bg-black/0 flex'>
-                    <RoadMarker />
-                  </View>
-                </TouchableOpacity>
-              </MapboxGL.MarkerView>
-            )
-          })}
 
-          {showRenderedProject && (
-            <View>
-            </View>
-          )}
-
-          { kmlData && (
-            <View>Text</View>
-          )}
-         
-          <MapboxGL.ShapeSource id="line1" shape={route}>
-            <MapboxGL.LineLayer
-              id="linelayer1"
-              style={{ lineColor: "red", lineWidth: 5 }}
-            />
-          </MapboxGL.ShapeSource>
-          <MapboxGL.ShapeSource id="source" shape={polygon}>
+        
+          <MapboxGL.ShapeSource id="source" shape={data} onPress={() => {
+            setCoordinates([117.125322, 7.962410])
+          }}>
             <MapboxGL.FillLayer
               id="fill"
               style={{ fillColor: "blue", fillOpacity: 0.7 }}
             />
+
             <MapboxGL.LineLayer
-              id="line"
-              style={{ lineColor: "red", lineWidth: 2 }}
-            />
-          </MapboxGL.ShapeSource>
+              id='line'
+              style={{ lineColor: 'red', lineWidth: 5 }}
+              ></MapboxGL.LineLayer>
+
+            </MapboxGL.ShapeSource>
+       
+
         </MapboxGL.MapView>
+
       </View>
-      <View className='bg-white w-screen flex justify-center items-center pt-10'>
+      <View className='bg-white w-screen flex justify-center items-center pt-4'>
         <TouchableOpacity className='p-4 border rounded-lg' onPress={() => {
           setZoom(5.9)
           setCoordinates(defaulCoordinates)
-          setShowMunicipalities(true)
-          setShowRenderedProjects(false)
         }}><Text>Zoom Out</Text></TouchableOpacity>
       </View>
     </SafeAreaView>
