@@ -44,7 +44,6 @@ const Login = ({ navigation }: Props) => {
 
   useEffect(() => {
     void (async () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-var-requires
       const imageD = Asset.fromModule(require("../../assets/splash.png"));
       await imageD.downloadAsync();
       setImage(imageD);
