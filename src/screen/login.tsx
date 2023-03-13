@@ -6,7 +6,7 @@ import { Asset } from "expo-asset";
 import { useForm, Controller } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
+import { useAuthStore } from "../../useStore/useRoleStore";
 
 type LoginFormInputs = {
   username: string;
@@ -15,9 +15,8 @@ type LoginFormInputs = {
 
 const Login = ({ navigation }: Props) => {
 
-  // const { isLoading, error, data, refetch } = useQuery<User[], Error>(
-  //   ['movies'], fetchMovies
-  // )
+  const login = useAuthStore((state) => state.login);
+
   const loginSchema = z.object({
     username: z.string(),
     password: z.string(),
@@ -31,11 +30,11 @@ const Login = ({ navigation }: Props) => {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data: LoginFormInputs) => {
+  const OnSubmit = (data: LoginFormInputs) => {
     if (data.password === "1" && data.username === "Admin") {
-      navigation.navigate("Home");
-    } else if (data.password === '1' && data.username === '1') {
-      navigation.navigate("EngDashboard")
+      login('admin');
+    } else if (data.password === '1' && data.username === 'User') {
+      login('user');
     }
     return new Promise((resolve) => setTimeout(resolve, 1000));
   };
@@ -118,7 +117,7 @@ const Login = ({ navigation }: Props) => {
           </Text>
         )}
         <TouchableOpacity
-          onPress={handleSubmit(onSubmit)}
+          onPress={handleSubmit(OnSubmit)}
           className="flex w-72 justify-center rounded-xl bg-blue-400 py-6 pl-4"
         >
           <Text className="mx-auto text-white">Sign in</Text>
