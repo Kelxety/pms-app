@@ -13,6 +13,7 @@ export type TabStackParamList = {
   HomeScreen: undefined;
   Projects: undefined;
   Maps: undefined;
+  SplashScreen: undefined;
 };
 
 const Tab = createBottomTabNavigator<TabStackParamList>();
