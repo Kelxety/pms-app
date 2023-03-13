@@ -11,7 +11,7 @@ import * as SplashScreen from "expo-splash-screen";
 void SplashScreen.preventAutoHideAsync();
 
 export type HomeScreenNavigationProp = CompositeNavigationProp<
-  BottomTabNavigationProp<TabStackParamList, "Screen">,
+  BottomTabNavigationProp<TabStackParamList, "SplashScreen">,
   NativeStackNavigationProp<StackParamListType>
 >;
 
@@ -20,7 +20,7 @@ export const SplashScreenOnly = ({ navigation }: Props) => {
     navigation.setOptions({
       headerShown: false,
     });
-  }, []);
+  }, [navigation]);
 
   useEffect(() => {
     async function prepare() {
