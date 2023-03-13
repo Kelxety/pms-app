@@ -6,6 +6,7 @@ import { kml } from '@tmcw/togeojson';
 import { DOMParser } from '@xmldom/xmldom';
 import RoadMarker from './svg/RoadMarker';
 import TouchableMarker from './TouchableMarker';
+import { LoadingIndicator } from './Utils/LoadingIndicator';
 
 void MapboxGL.setAccessToken('sk.eyJ1Ijoia2VseGV0eSIsImEiOiJjbGV6MG5tcjUwYWg3M3JzMmRmZ2JvM2R5In0.g8AVLvmX3m8RJs8zO_xB_g');
 
@@ -35,7 +36,7 @@ const MapOfProject = () => {
   const { data, isError, isLoading } = useQuery(['kmlData'], fetchKml);
 
   if (isError) return <View><Text>Error</Text></View>;
-  if (isLoading) return <View className='h-screen w-screen justify-center items-center'><Text>Loading</Text></View>;
+  if (isLoading) return <View className='h-screen w-screen justify-center items-center'><LoadingIndicator/></View>;
 
   
   return (

@@ -91,20 +91,6 @@ const Mapviewing = () => {
               <Text className='text-xs text-gray-700 '>El Nido</Text>
             </View>  
           </MapboxGL.PointAnnotation>
-          {/* <ProjectsMarker /> */}
-          {/* {showMunicipalities && municipalities?.map((data:LocationT, i: number) => {
-            return (
-              <MapboxGL.MarkerView coordinate={data.coord} key={i}>
-                <TouchableOpacity onPress={()=>{renderMunicipality(data.coord, 8)}}>
-                  <View className='items-center w-[60px] h-[70px] bg-black/0 flex'>
-                    <RoadMarker />
-                  </View>
-                </TouchableOpacity>
-              </MapboxGL.MarkerView>
-            )
-          })} */}
-
-
         
           <MapboxGL.ShapeSource id="source" shape={data} onPress={() => {
             setCoordinates([117.125322, 7.962410])
