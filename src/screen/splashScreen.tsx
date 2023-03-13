@@ -6,7 +6,7 @@ import { useEffect, useLayoutEffect } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native";
 import { Props, StackParamListType } from "../../navigator/RootNavigator";
-import { TabStackParamList } from "../../navigator/TabNavigator";
+import { TabStackParamList } from "../../navigator/AdminTabNavigatorComponent";
 import * as SplashScreen from "expo-splash-screen";
 void SplashScreen.preventAutoHideAsync();
 
