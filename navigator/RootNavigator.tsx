@@ -3,38 +3,99 @@ import {
   createNativeStackNavigator,
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
-import TabNavigator from "./TabNavigator";
-import { SplashScreenOnly } from "../src/screen/splashScreen";
 import Login from "../src/screen/login";
-import ProjectDetails from "../src/screen/projectDetails";
-import EngDashboard from "../src/screen/engDashboard";
-import Map from "../src/screen/map";
+import AdminTabNavigatorComponent from "./AdminTabNavigatorComponent";
+import UserTabNavigatorComponent from "./UserTabNavigatorComponent";
+import { useAuthStore } from "../useStore/useRoleStore";
+import { SplashScreenOnly } from "../src/screen/splashScreen";
+import ProjectDetails from "../src/screen/userScreen/projectDetails";
+import Map from "../src/screen/userScreen/map";
+import ProjectMap from "../src/screen/userScreen/projectMap";
 
 export type StackParamListType = {
   Home: undefined;
-  EngDashboard: undefined;
+  Dashboard: undefined;
   SplashScreen: undefined;
   Login: undefined;
   Profile: undefined;
   ProjectDetails: undefined;
   Map: undefined;
+  ProjectMap: undefined;
 };
+
+type AppNavigatorProps = {
+  userRole: 'user' | 'admin';
+}
 
 export type Props = NativeStackScreenProps<StackParamListType>;
 
+
+
 const Stack = createNativeStackNavigator();
 
-const RootNavigator = () => {
+const AuthNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="SplashScreen">
       <Stack.Screen name="SplashScreen" component={SplashScreenOnly} />
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
-      <Stack.Screen name="Home" component={TabNavigator} />
-      <Stack.Screen name="Map" component={Map} />
-      <Stack.Screen name="EngDashboard" component={EngDashboard} options={{ headerShown: false }} />
     </Stack.Navigator>
-  );
+  )
+}
+
+const AppNavigator = ({ userRole }: AppNavigatorProps) => {
+  return (
+    <Stack.Navigator>
+      {userRole === null && (
+        <Stack.Screen name="AuthNavigator" component={AuthNavigator} />
+      )}
+      {
+        userRole === 'user' ? (
+          <>
+            <Stack.Screen name="UserTabNavigator" component={UserTabNavigator} />
+            <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
+            <Stack.Screen name="Map" component={Map} />
+            <Stack.Screen name="ProjectMap" component={ProjectMap} />
+          </>
+          
+        ) : (
+          <Stack.Screen name="AdminTabNavigator" component={AdminTabNavigator} />
+        )
+      }
+      
+    </Stack.Navigator>
+  )
+}
+
+const AdminTabNavigator = () => {
+  return (
+    <AdminTabNavigatorComponent />
+  )
+}
+
+const UserTabNavigator = () => {
+  return (
+    <UserTabNavigatorComponent />
+  )
+}
+
+const RootNavigator = () => {
+  const userRole = useAuthStore((state) => state.userRole)
+
+  if (userRole === null) {
+    return <AuthNavigator />;
+  }
+
+  return <AppNavigator userRole={userRole} />
+
+  // return (
+  //   <Stack.Navigator initialRouteName="SplashScreen">
+  //     <Stack.Screen name="SplashScreen" component={SplashScreenOnly} />
+  //     <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
+  //     <Stack.Screen name="Home" component={TabNavigator} />
+  //     
+  //     <Stack.Screen name="EngDashboard" component={EngDashboard} options={{ headerShown: false }} />
+  //   </Stack.Navigator>
+  // )
 };
 
 export default RootNavigator;
