@@ -1,17 +1,9 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  StatusBar,
-  ScrollView,
-} from "react-native";
-import React from "react";
-import { Props } from "../../../navigator/RootNavigator";
-import { Rect, Svg } from "react-native-svg";
-import ExpandableComponent from "../../components/ExpandableComponent";
-import BackArrowSVG from "../../components/svg/BackArrow";
-import SvgChart from "../../components/SvgChart";
+import { View, Text, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native'
+import React, { useLayoutEffect, useState } from 'react'
+import { Props } from '../../../navigator/RootNavigator';
+import SvgChart from '../../components/SvgChart';
+import { Rect, Svg } from 'react-native-svg';
+import ExpandableComponent from '../../components/ExpandableComponent';
 
 export type DataTypes = {
   isExpanded: boolean;
@@ -24,7 +16,14 @@ export type SubcategoryT = {
   subcat_desc: string;
 }[];
 
-const ProjectDetails = ({ navigation }: Props) => {
+
+type TabPropsT = {
+  color: string;
+  isActive: boolean;
+};
+
+const SubmitReport = ({ navigation }: Props) => {
+
   const listDataSource: DataTypes[] = [
     {
       isExpanded: false,
@@ -130,31 +129,24 @@ const ProjectDetails = ({ navigation }: Props) => {
     },
   ];
 
-  React.useLayoutEffect(() => {
+  const [tab, setTab] = useState<{name:string, isActive:boolean}[]>([
+    { name: 'Profile', isActive: true },
+    { name: 'Pal', isActive: false },
+    { name: 'Bac', isActive: false },
+    { name: 'Financial', isActive: false },
+    { name: 'SWA', isActive: false }
+  ]);
+
+  useLayoutEffect(() => {
     navigation.setOptions({
-      headerShown: false,
-    });
-  }, [navigation]);
+      headerShown: false
+    })
+  })
 
-  return (
-    <SafeAreaView className="bg-primary-500 dark:bg-gray-900">
-      <StatusBar barStyle={"light-content"} />
-      <View className="bg-primary-500 relative flex flex-row items-center justify-center p-5 dark:bg-gray-900">
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Dashboard");
-          }}
-          className="absolute left-4"
-        >
-          <BackArrowSVG />
-        </TouchableOpacity>
-
-        <Text className="font-bold text-white">
-          Project Tracking Information
-        </Text>
-      </View>
-      <View className="h-full bg-gray-100 p-4 dark:bg-gray-800">
-        <View className="relative h-auto rounded-lg bg-white p-4 dark:bg-gray-900">
+  const Profile = ({color, isActive}:TabPropsT) => { 
+    return (
+      <View className="pt-6">
+        <View className="relative rounded-lg bg-white p-4 dark:bg-gray-900">
           <View className="absolute left-4 -top-2 rounded-2xl bg-gray-100 px-4 py-1 ">
             <Text className="text-xs font-bold">On Going</Text>
           </View>
@@ -206,23 +198,100 @@ const ProjectDetails = ({ navigation }: Props) => {
             </View>
           </View>
          
-          <ScrollView className="mt-4 h-[50vh]">
+          <ScrollView className="mt-4 h-[350px]">
             {listDataSource.map((item: DataTypes, key: number) => {
               return <ExpandableComponent key={key} item={item} />;
             })}
           </ScrollView>
           <View className="flex w-full flex-row gap-4 items-center justify-center pt-4">
+            <TouchableOpacity className="bg-primary-500 flex h-8 items-center justify-center rounded-2xl px-4 text-white" onPress={()=>{navigation.navigate('SubmitReport')}}>
+              <Text className="text-white">Submit a Report</Text>
+            </TouchableOpacity>
             <TouchableOpacity className="bg-primary-500 flex h-8 w-32 items-center justify-center rounded-2xl px-4 text-white" onPress={()=>{navigation.navigate('ProjectMap')}}>
               <Text className="text-white">View in map</Text>
-            </TouchableOpacity>
-            <TouchableOpacity className="bg-primary-500 flex h-8 items-center justify-center rounded-2xl px-4 text-white" onPress={()=>{navigation.navigate('ProjectMap')}}>
-              <Text className="text-white">Submit a Report</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
-    </SafeAreaView>
-  );
-};
+    )
+  }
 
-export default ProjectDetails;
+  const Pal = ({color, isActive}:TabPropsT) => {
+    return (
+      <View>
+        <Text className={`text-[${color}]`}>Pal</Text>
+      </View>
+    )
+  }
+
+  const Bac = ({color, isActive}:TabPropsT) => {
+    return (
+      <View>
+        <Text className={`text-[${color}]`}>Bac</Text>
+      </View>
+    )
+  }
+
+  const Financial = ({color, isActive}:TabPropsT) => {
+    return (
+      <View>
+        <Text className={`text-[${color}]`}>Financial</Text>
+      </View>
+    )
+  }
+
+  const SWA = ({color, isActive}:TabPropsT) => {
+    return (
+      <View>
+        <Text className={`text-[${color}]`}>SWA</Text>
+      </View>
+    )
+  }
+
+  return (
+    <SafeAreaView className='bg-primary-500 h-screen w-screen'>
+      <View className='bg-white w-full'>
+        <View className='h-14 relative flex-row justify-center items-center bg-primary-500'>
+          <TouchableOpacity className='absolute left-4' onPress={()=>navigation.navigate("Dashboard")}>
+            <Text className='text-white'>Back</Text>
+          </TouchableOpacity>
+          <Text className='font-bold text-white'>Project Details</Text>
+        </View>
+      </View>
+      <View className='w-full h-full bg-gray-100 p-2'>
+        <View className='p-2 rounded-3xl bg-primary-500 flex flex-row justify-between'>
+          {tab.map((item, index) => {
+            return (
+              <TouchableOpacity key={index} onPress={() => {
+                setTab(tab.map((item, i) => {
+                  if (index === i) {
+                    return { ...item, isActive: true }
+                  } else {
+                    return { ...item, isActive: false }
+                  }
+                }
+                ))
+              }} className={`w-1/5 items-center justify-center py-1 ${item.isActive? 'bg-white rounded-2xl':''}`}>
+                <Text className={`text-white ${item.isActive ? 'font-bold text-black' : ''}`}>{item.name}</Text>
+              </TouchableOpacity>
+            )
+          })}
+        </View>
+        {tab?.map((item:{name:string, isActive:boolean}, index:number) => {
+          return (
+            item.isActive &&
+              <View key={index}>
+                {item.name === 'Profile' ? <Profile color={item.isActive ? 'black' : 'gray'} isActive={item.isActive} /> : null}
+                {item.name === 'Pal' ? <Pal color={item.isActive ? 'black' : 'gray'} isActive={item.isActive} /> : null}
+                {item.name === 'Bac' ? <Bac color={item.isActive ? 'black' : 'gray'} isActive={item.isActive} /> : null}
+                {item.name === 'Financial' ? <Financial color={item.isActive ? 'black' : 'gray'} isActive={item.isActive} /> : null}
+                {item.name === 'SWA' ? <SWA color={item.isActive ? 'black' : 'gray'} isActive={item.isActive} /> : null}
+              </View>
+            )
+        })}
+      </View>
+    </SafeAreaView>
+  )
+}
+
+export default SubmitReport

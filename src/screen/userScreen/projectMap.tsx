@@ -21,10 +21,9 @@ const ProjectMap = ({navigation}:Props) => {
           <View className='p-4'></View>
           <Text>Other Details</Text>
         </View>
-
       </View>
       <View className='bg-white h-full w-full items-center'>
-        <TouchableOpacity className='bg-red-500 px-8 py-2 rounded-xl' onPress={()=>navigation.navigate('ProjectDetails')}>
+        <TouchableOpacity className='bg-red-500 px-8 py-2 rounded-xl' onPress={()=>navigation.navigate('SubmitReport')}>
           <Text className='text-white'>Return to Project Details</Text>
         </TouchableOpacity>
       </View>
