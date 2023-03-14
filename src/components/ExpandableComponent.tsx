@@ -1,9 +1,9 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import { DataTypes } from "../screen/projectDetails";
 import ExpandArrowDownSVG from "./svg/ExpandArrowDownSVG";
 import ExpandArrowUpSVG from "./svg/ExpandArrowUpSVG";
 import LocationSVG from "./svg/LocationSVG";
+import { DataTypes } from "../screen/userScreen/projectDetails";
 
 type Props = {
   item: DataTypes;

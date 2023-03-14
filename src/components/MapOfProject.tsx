@@ -1,11 +1,10 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import React, { useRef, useState } from 'react';
-import MapboxGL, { Camera } from '@rnmapbox/maps';
+import MapboxGL, { Camera } from '@rnmapbox/maps/javascript';
 import { useQuery } from '@tanstack/react-query';
 import { kml } from '@tmcw/togeojson';
 import { DOMParser } from '@xmldom/xmldom';
 import RoadMarker from './svg/RoadMarker';
-import TouchableMarker from './TouchableMarker';
 import { LoadingIndicator } from './Utils/LoadingIndicator';
 
 void MapboxGL.setAccessToken('sk.eyJ1Ijoia2VseGV0eSIsImEiOiJjbGV6MG5tcjUwYWg3M3JzMmRmZ2JvM2R5In0.g8AVLvmX3m8RJs8zO_xB_g');
