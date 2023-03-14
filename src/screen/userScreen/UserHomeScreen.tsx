@@ -68,7 +68,6 @@ const UserHomeScreen = ({ navigation }: Props) => {
     },
 ]
 
-
   const projectActivity = ({item}:{item:SampleDataT}) => {
     return (
       <TouchableOpacity className="bg-white w-40 h-auto p-1 m-2 border-[#CBCBCB] border rounded-lg mb-16" onPress={()=>{
