@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import ProjectView from "../components/ProjectView";
 import { Props } from "../../navigator/RootNavigator";
 
-type Project = {
+export type ProjectT = {
   id: number;
   projectName: string;
   engineer: string;
@@ -29,7 +29,7 @@ const Projects = ({ navigation }: Props) => {
     navigation.setOptions({
       headerShown: false,
     });
-  }, []);
+  }, [navigation]);
 
   const [searchText, setSearchText] = useState('')
 
@@ -40,7 +40,7 @@ const Projects = ({ navigation }: Props) => {
     setDataMaster(searchData)
   }
 
-  const [dataMaster, setDataMaster] = useState<Project[]>([
+  const [dataMaster, setDataMaster] = useState<ProjectT[]>([
     {
       id: 1,
       projectName: "Concreting of Araceli Dumaran Road",
