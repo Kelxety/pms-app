@@ -1,6 +1,6 @@
 # Project Monitoring System (PMS) App
 
-Project Monitoring System or PMS App is a project monitoring application for Top level management or ground level engineer for a seamless project transparancy.
+Project Monitoring System or PMS App is a project monitoring application for Top level management or ground level engineer for a seamless project transparency.
 
 
 ## Documentation
