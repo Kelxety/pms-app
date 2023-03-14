@@ -17,7 +17,7 @@
     "@react-navigation/bottom-tabs": "^6.5.5",
     "@react-navigation/native": "^6.1.4",
     "@react-navigation/native-stack": "^6.9.10",
-    "@rnmapbox/maps": "10.0.0-beta.75",
+    "@rnmapbox/maps": "rnmapbox/maps",
     "@svgr/webpack": "^5.5.0",
     "@tanstack/react-query": "^4.24.10",
     "@tmcw/togeojson": "^5.6.0",
