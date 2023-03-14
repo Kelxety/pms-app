@@ -331,13 +331,13 @@ PODS:
     - React-perflogger (= 0.70.5)
   - RNFS (2.20.0):
     - React-Core
-  - rnmapbox-maps (10.0.0-beta.74):
+  - rnmapbox-maps (10.0.0-beta.76):
     - MapboxMaps (~> 10.11.1)
     - React
     - React-Core
-    - rnmapbox-maps/DynamicLibrary (= 10.0.0-beta.74)
+    - rnmapbox-maps/DynamicLibrary (= 10.0.0-beta.76)
     - Turf
-  - rnmapbox-maps/DynamicLibrary (10.0.0-beta.74):
+  - rnmapbox-maps/DynamicLibrary (10.0.0-beta.76):
     - MapboxMaps (~> 10.11.1)
     - React
     - React-Core
@@ -566,7 +566,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 7401c4a40f8728fd89df4a56104541b760876117
   ReactCommon: c9246996e73bf75a2c6c3ff15f1e16707cdc2da9
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
-  rnmapbox-maps: c9286ebb23569bbbfcd1d8e69d44e8c71763f883
+  rnmapbox-maps: 288f46c37cf72119140bc9c39410ef7bce0af120
   RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
   RNSVG: 07dbd870b0dcdecc99b3a202fa37c8ca163caec2
   Turf: 469ce2c3d22e5e8e4818d5a3b254699a5c89efa4

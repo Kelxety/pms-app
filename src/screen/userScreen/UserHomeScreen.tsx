@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, StatusBar, TouchableOpacity, Image, StyleSheet, FlatList, Alert } from 'react-native'
-import React from 'react'
+import React, { useLayoutEffect } from 'react'
 import { Props } from "../../../navigator/RootNavigator";
 import { useColorScheme } from 'nativewind';
 import { Circle, Svg } from 'react-native-svg';
@@ -66,7 +66,13 @@ const UserHomeScreen = ({ navigation }: Props) => {
         status: 'On Going',
         progress: '70'
     },
-]
+  ]
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown:false
+    })
+  },[navigation])
 
   const projectActivity = ({item}:{item:SampleDataT}) => {
     return (

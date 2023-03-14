@@ -31,8 +31,6 @@ type AppNavigatorProps = {
 
 export type Props = NativeStackScreenProps<StackParamListType>;
 
-
-
 const Stack = createNativeStackNavigator();
 
 const AuthNavigator = () => {
@@ -59,7 +57,6 @@ const AppNavigator = ({ userRole }: AppNavigatorProps) => {
             <Stack.Screen name="ProjectMap" component={ProjectMap} />
             <Stack.Screen name="SubmitReport" component={SubmitReport} />
           </>
-          
         ) : (
           <Stack.Screen name="AdminTabNavigator" component={AdminTabNavigator} />
         )
