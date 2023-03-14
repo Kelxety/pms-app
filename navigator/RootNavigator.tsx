@@ -11,6 +11,7 @@ import { SplashScreenOnly } from "../src/screen/splashScreen";
 import ProjectDetails from "../src/screen/userScreen/projectDetails";
 import Map from "../src/screen/userScreen/map";
 import ProjectMap from "../src/screen/userScreen/projectMap";
+import SubmitReport from "../src/screen/userScreen/submitReport";
 
 export type StackParamListType = {
   Home: undefined;
@@ -21,6 +22,7 @@ export type StackParamListType = {
   ProjectDetails: undefined;
   Map: undefined;
   ProjectMap: undefined;
+  SubmitReport: undefined;
 };
 
 type AppNavigatorProps = {
@@ -55,6 +57,7 @@ const AppNavigator = ({ userRole }: AppNavigatorProps) => {
             <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
             <Stack.Screen name="Map" component={Map} />
             <Stack.Screen name="ProjectMap" component={ProjectMap} />
+            <Stack.Screen name="SubmitReport" component={SubmitReport} />
           </>
           
         ) : (
@@ -86,16 +89,6 @@ const RootNavigator = () => {
   }
 
   return <AppNavigator userRole={userRole} />
-
-  // return (
-  //   <Stack.Navigator initialRouteName="SplashScreen">
-  //     <Stack.Screen name="SplashScreen" component={SplashScreenOnly} />
-  //     <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
-  //     <Stack.Screen name="Home" component={TabNavigator} />
-  //     
-  //     <Stack.Screen name="EngDashboard" component={EngDashboard} options={{ headerShown: false }} />
-  //   </Stack.Navigator>
-  // )
 };
 
 export default RootNavigator;
