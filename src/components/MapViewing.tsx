@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState} from 'react';
+import React, { useRef, useState} from 'react';
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-import MapboxGL, {Camera} from '@rnmapbox/maps';
-import RoadMarker from './svg/RoadMarker';
+import MapboxGL, {Camera} from '@rnmapbox/maps/javascript';
 import { kml } from '@tmcw/togeojson';
 import { useQuery } from '@tanstack/react-query';
 import { DOMParser } from '@xmldom/xmldom';
@@ -11,8 +10,6 @@ type LocationT = {
 }
 
 void MapboxGL.setAccessToken('sk.eyJ1Ijoia2VseGV0eSIsImEiOiJjbGV6MG5tcjUwYWg3M3JzMmRmZ2JvM2R5In0.g8AVLvmX3m8RJs8zO_xB_g')
-
-
 
 const Mapviewing = () => {
  
@@ -106,8 +103,6 @@ const Mapviewing = () => {
               ></MapboxGL.LineLayer>
 
             </MapboxGL.ShapeSource>
-       
-
         </MapboxGL.MapView>
 
       </View>

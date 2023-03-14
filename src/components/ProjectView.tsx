@@ -2,9 +2,9 @@ import { View, Text } from "react-native";
 import React from "react";
 import SvgChart from "./SvgChart";
 import { G, Path, Polygon, Svg } from "react-native-svg";
-import { Project } from "../screen/projects";
+import { ProjectT } from "../screen/projects";
 
-const ProjectView = (item: { index: number; item: Project }) => {
+const ProjectView = (item: { index: number; item: ProjectT }) => {
   return (
     // Flat List Item
     <View
