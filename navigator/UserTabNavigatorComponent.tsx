@@ -15,6 +15,7 @@ export type TabStackParamList = {
   Maps: undefined;
   Dashboard: undefined;
   Screen: undefined;
+  SubmitReport: undefined;
   ProjectDetails: undefined;
 };
 
