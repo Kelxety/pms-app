@@ -148,6 +148,8 @@ const Projects = ({ navigation }: Props) => {
           onChangeText={(text) => handleSearch(text)}
         />
         <View className="p-2"></View>
+        <View><Text>Added View Screen</Text></View>
+
         <FlatList
           data={dataMaster}
           keyExtractor={(item) => item.id.toString()}
