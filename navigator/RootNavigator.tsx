@@ -36,7 +36,7 @@ const Stack = createNativeStackNavigator();
 const AuthNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="SplashScreen">
-      <Stack.Screen name="SplashScreen" component={SplashScreenOnly} />
+      <Stack.Screen name="SplashScreen" component={SplashScreenOnly} /> 
       <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
   )
@@ -61,7 +61,6 @@ const AppNavigator = ({ userRole }: AppNavigatorProps) => {
           <Stack.Screen name="AdminTabNavigator" component={AdminTabNavigator} />
         )
       }
-      
     </Stack.Navigator>
   )
 }
